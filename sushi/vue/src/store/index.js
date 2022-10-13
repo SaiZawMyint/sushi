@@ -61,6 +61,9 @@ const store = createStore({
                     description: "Welcome to my store"
                 }
             ]
+        },
+        modalBox: {
+            data: {}
         }
     },
     getters: {},
@@ -80,11 +83,15 @@ const store = createStore({
             })
         },
         logout({commit}){
-            axiosClient.post('/logout')
+            return axiosClient.post('/logout')
             .then((res)=>{
                 commit('logout')
                 return res
             })
+        },
+        modalBox({ commit }, data) {
+            commit('modal',data)
+            return data
         }
     },
     mutations: {
@@ -97,6 +104,9 @@ const store = createStore({
             state.user.data = data.user
             state.user.token = data.token
             sessionStorage.setItem("TOKEN",data.token)
+        },
+        modal: (state, data) =>{
+            state.modalBox.data = data
         }
     },
     module: {}

@@ -7,9 +7,10 @@
     <body class="h-full">
     ```
   -->
-    <div class="min-h-full flex relative overflow-hidden h-[100%]">
+    <div class="min-h-full flex relative overflow-hidden h-[100%] bg-gray-800">
         <MainMenuVue></MainMenuVue>
-        <Disclosure as="nav" class="w-full z-50 backdrop-blur-sm bg-gray-800 backdrop-brightness-150 md:backdrop-filter-none" v-slot="{ open }">
+        <div class="bg-none relative overflow-auto">
+        <Disclosure as="nav" class="w-full z-50 fixed backdrop-blur-sm bg-gray-800 backdrop-brightness-150 md:backdrop-filter-none" v-slot="{ open }">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
@@ -103,10 +104,15 @@
                     </div>
                 </div>
             </DisclosurePanel>
-            <router-view></router-view>
         </Disclosure>
-        
+        <div class="p-10"></div>
+        <router-view></router-view>
+        </div>
     </div>
+    <div  v-if="store.state.modalBox.data.show">
+        <ModalBoxVue></ModalBoxVue>
+    </div>
+    
 </template>
 
 <script setup>
@@ -115,7 +121,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import {useStore} from 'vuex'
 import {computed} from 'vue'
 import { useRouter } from 'vue-router';
-
+import ModalBoxVue from './awesomeui/ModalBox.vue';
 const store = useStore()
 const router = useRouter()
 
