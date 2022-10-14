@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full py-4 px-8 my-2">
+    <div class="max-w-full py-4 px-8 my-2 m">
         <div class="p-2 rounded-lg m-2 backdrop-blur-sm bg-white/30 w-[fit-content] inline-block">
             <div class="flex p-1 items-center">
                 <roundedProgressVue>
@@ -10,9 +10,10 @@
                     </svg>
                 </roundedProgressVue>
                 <div class="px-2">
-                    <h3 class=" text-3xl font-bold">Balance</h3>
+                    <h3 class=" text-2xl font-bold w-[100px]">Balance</h3>
                     <div class="flex justify-start items-center">
-                        <div class="p-2 font-bold flex rounded-lg hover:bg-[#0000004c] cursor-pointer" @click="balanceCharge">
+                        <div class="p-2 font-bold flex rounded-lg hover:bg-[#0000004c] cursor-pointer"
+                            @click="balanceCharge">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
                                 <path fill="#5ac3b6"
                                     d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 19l1.5-5h-4.5l7-9-1.5 5h4.5l-7 9z" />
@@ -33,7 +34,7 @@
                     </svg>
                 </roundedProgressVue>
                 <div class="p-2">
-                    <h3 class="px-2 text-3xl font-bold">Stores</h3>
+                    <h3 class="px-2 text-2xl font-bold">Stores</h3>
                     <span class="px-3 font-bold">3.35% cap</span>
                 </div>
             </div>
@@ -48,7 +49,7 @@
                     </svg>
                 </roundedProgressVue>
                 <div class="p-2">
-                    <h3 class="px-2 text-3xl font-bold">Products</h3>
+                    <h3 class="px-2 text-2xl font-bold">Products</h3>
                     <span class="px-3 font-bold">12202</span>
                 </div>
             </div>
@@ -61,10 +62,9 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                     </svg>
-
                 </roundedProgressVue>
                 <div class="p-2">
-                    <h3 class="px-2 text-3xl font-bold">Customers</h3>
+                    <h3 class="px-2 text-2xl font-bold">Customers</h3>
                     <span class="px-3 font-bold">55049</span>
                 </div>
             </div>
@@ -74,6 +74,7 @@
 <script setup>
 import { useStore } from 'vuex';
 import roundedProgressVue from '../awesomeui/roundedProgress.vue';
+import SearchBoxVue from '../awesomeui/SearchBox.vue';
 const store = useStore();
 function balanceCharge(){
     var element = document.createElement('div');

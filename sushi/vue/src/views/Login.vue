@@ -84,7 +84,7 @@ function login(){
     }
     console.log(store.state.user.data)
     router.push({
-      name: 'dashboard' 
+      name: 'account'
     })
   }).catch((err)=>{
     errorData({ok:false,error: 'Invalid email address or passowrd!'})

@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import store from './store'
 import router from './router'
 import './index.css'
+import '@vuepic/vue-datepicker/dist/main.css'
 import App from './App.vue'
 import ModalBox from './components/awesomeui/ModalBox.vue'
 

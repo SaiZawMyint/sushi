@@ -4,7 +4,8 @@ const store = createStore({
     state: {
         user: {
             data: {},
-            token: sessionStorage.getItem('TOKEN')
+            token: sessionStorage.getItem('TOKEN'),
+            showacc: true
         },
         store:{
             name: 'My Stores',
@@ -63,7 +64,17 @@ const store = createStore({
             ]
         },
         modalBox: {
-            data: {}
+            data: {
+                width: 'w-[40%]',
+                height: 'h-[70%]',
+                show: true,
+                cancelBtn: 'Close',
+                okBtn: 'Confirm',
+                animation: 'slideDown',
+                ok: function(data){
+                    console.log(data,'click')
+                }
+            }
         }
     },
     getters: {},

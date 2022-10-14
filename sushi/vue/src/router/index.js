@@ -5,6 +5,7 @@ import Login from '../views/Login.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Stores from '../views/Stores.vue';
 import Registeration from '../views/Registeration.vue';
+import Account from '../views/AccountInformation.vue';
 import store from "../store";
 
 const routes = [
@@ -38,6 +39,11 @@ const routes = [
                 component: Registeration
             }
         ]
+    },
+    {
+        path: '/account',
+        name: 'account',
+        component: Account
     }
     
 ]
@@ -51,7 +57,11 @@ router.beforeEach((to, from, next) => {
     if(to.meta.requiresAuth && !store.state.user.token){
         next({name: 'login'})
     }else if(store.state.user.token && (to.name == 'login' || to.name == 'registeration')){
-        next({name: 'dashboard'})
+        if(store.state.user.showacc){
+            next({name: 'account'})
+        }else{
+            next({name: 'dashboard'})
+        }
     }
     else{
         next()

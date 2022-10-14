@@ -10,3 +10,8 @@
         icons: null
     }
 </script>
+<style>
+.balance-icon{
+    min-width: 80px;
+}
+</style>
