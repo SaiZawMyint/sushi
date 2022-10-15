@@ -7,11 +7,11 @@ const store = createStore({
             token: sessionStorage.getItem('TOKEN'),
             showacc: true
         },
-        store:{
+        store: {
             name: 'My Stores',
             photo: '',
             status: true,
-            stores:[
+            stores: [
                 {
                     id: 0,
                     name: 'My Store',
@@ -65,61 +65,72 @@ const store = createStore({
         },
         modalBox: {
             data: {
-                width: 'w-[40%]',
-                height: 'h-[70%]',
-                show: true,
-                cancelBtn: 'Close',
-                okBtn: 'Confirm',
-                animation: 'slideDown',
-                ok: function(data){
-                    console.log(data,'click')
-                }
+
+            },
+            step: {
+                one: true,
+                two: false,
+                three: false
             }
+        },
+        loadingScreen: {
+            show: false
         }
     },
     getters: {},
     actions: {
-        register({commit}, user){
-            return axiosClient.post('/register',user)
-            .then(({data})=>{
-                commit('setUser',data)
-                return data;
+        register({ commit }, user) {
+            return axiosClient.post('/register', user, {
+                onUploadProgress: function (progressEvent) {
+                    var uploadPercentage = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100));
+                    console.log(uploadPercentage)
+                }.bind(this)
             })
+                .then(({ data }) => {
+                    commit('setUser', data)
+                    return data;
+                })
         },
-        login({commit}, user){
-            return axiosClient.post('/login',user)
-            .then(({data})=>{
-                commit('setUser',data)
-                return data;
-            })
-        },
-        logout({commit}){
-            return axiosClient.post('/logout')
-            .then((res)=>{
-                commit('logout')
-                return res
-            })
-        },
-        modalBox({ commit }, data) {
-            commit('modal',data)
-            return data
+        login({ commit }, user, 
+        ) {
+    return axiosClient.post('/login', user, {
+        onUploadProgress: function (progressEvent) {
+            let uploadPercentage = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100));
+            console.log(uploadPercentage)
         }
+    })
+        .then(({ data }) => {
+            commit('setUser', data)
+            return data;
+        })
+},
+logout({ commit }){
+    return axiosClient.post('/logout')
+        .then((res) => {
+            commit('logout')
+            return res
+        })
+},
+modalBox({ commit }, data) {
+    commit('modal', data)
+    return data
+}
     },
-    mutations: {
-        logout: state => {
-            state.user.data = {}
-            state.user.token = null
-            sessionStorage.removeItem('TOKEN')
-        },
-        setUser: (state, data)=>{
+mutations: {
+    logout: state => {
+        state.user.data = {}
+        state.user.token = null
+        sessionStorage.removeItem('TOKEN')
+    },
+        setUser: (state, data) => {
             state.user.data = data.user
             state.user.token = data.token
-            sessionStorage.setItem("TOKEN",data.token)
+            sessionStorage.setItem("TOKEN", data.token)
         },
-        modal: (state, data) =>{
-            state.modalBox.data = data
-        }
-    },
-    module: {}
+            modal: (state, data) => {
+                state.modalBox.data = data
+            }
+},
+module: { }
 })
 export default store

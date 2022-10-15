@@ -10,4 +10,4 @@ axiosClient.interceptors.request.use(config=>{
     config.headers['Access-Control-Allow-Methods'] = "OPTIONS, DELETE, POST, GET, PATCH, PUT";
     return config
 })
-export default axiosClient;
+export default axiosClient

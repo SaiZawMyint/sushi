@@ -6,6 +6,15 @@
       </p>
     </div>
     <form class="mt-8 space-y-6" @submit.prevent="register">
+      <div v-if="error" class="flex items-center justify-between px-2 py-3 bg-red-100 text-red-500 rounded">
+      {{error.error}}
+      <span @click="error = null" class="w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer hover:bg-[rgba(0,0,0,0.2)]">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </span>
+    </div>
       <input type="hidden" name="remember" value="true">
       <div class="-space-y-px rounded-md shadow-sm">
         <div>
@@ -54,6 +63,8 @@
 <script setup>
 import store from '../store'
 import { useRouter } from 'vue-router';
+import {ref} from 'vue'
+let error = ref()
   const user={
     name: '',
     email: '',
@@ -64,12 +75,20 @@ import { useRouter } from 'vue-router';
   function register(){
     store.dispatch('register',user)
     .then((res)=>{
+      if(!res.ok){
+        errorData(res)
+      }
       if('errors' in res){
-        console.log(`Errors:`,res)
+        errorData(res)
       }else{
         router.push({name:'dashboard'})
       }
       
+    }).catch(err=>{
+      errorData({ok:false,error: 'Registration failed!'})
     })
   }
+  function errorData(data){
+  error.value = data
+}
 </script>
