@@ -22,7 +22,7 @@
                         </svg>
                     </button>
                     <button class="w-12 h-12 m-1 flex items-center justify-center rounded-full bg-[#0f172acc] profile">
-                        <img src="../profiles/img-profile.jpg" alt="Profile" class="" />
+                        <img src="../profiles/img-business-pro.png" alt="Profile" class="" />
                     </button>
                     
                 </div>
@@ -38,12 +38,13 @@
 </template>
 
 <script setup>
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import {useStore} from 'vuex'
 import {computed} from 'vue'
 import { useRouter } from 'vue-router';
 import ModalBoxVue from './awesomeui/ModalBox.vue';
+import MainMenuVue from './MainMenu.vue';
+import SearchBox from './awesomeui/SearchBox.vue';
+
 const store = useStore()
 const router = useRouter()
 
@@ -71,6 +72,5 @@ const userNavigation = [
   { name: 'Settings', href: '#', opt: null  },
   { name: 'Sign out', href: '#', opt: logout  },
 ]
-import MainMenuVue from './MainMenu.vue';
-import SearchBox from './awesomeui/SearchBox.vue';
+
 </script>

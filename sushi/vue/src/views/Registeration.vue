@@ -1,7 +1,8 @@
 <template>
     <div>
-      <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
-      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+      <img class="mx-auto h-[150px] w-auto" src="../profiles/img-business-pro.png"
+      alt="Sushi">
+      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Explore your business</h2>
       <p class="mt-2 text-center text-sm text-gray-600">
       </p>
     </div>

@@ -1,13 +1,23 @@
-<template>
-    <div class="fixed w-full h-full overflow-hidden backdrop-blur-sm bg-[#0f172acc] loading">
-        <div class="comp-view flex items-center justify-center">
-            <div class="circle f2"></div>
-            <div class="circle f3"></div>
-            <div class="circle f4"></div>
-            <div class="circle f5"></div>
+<template v-if="store.state.loadingScreen.show">
+    <div :class="!store.state.loadingScreen.spec ? 'bg-[#0f172acc]':''" class="fixed w-full flex-col items-center justify-center h-full overflow-hidden backdrop-blur-sm loading">
+        
+        <div class="comp-view">
+            <h3 class="text-2xl font-bold text-gray-300 py-3">{{store.state.loadingScreen.title}}</h3>
+            <div class="flex items-center justify-center">
+                <div class="circle f2"></div>
+                <div class="circle f3"></div>
+                <div class="circle f4"></div>
+                <div class="circle f5"></div>
+            </div>
+            
         </div>
     </div>
 </template>
+<script setup>
+import { useStore } from 'vuex';
+
+const store = useStore()
+</script>
 <style>
 .loading{
     z-index: 999;
@@ -19,7 +29,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
+    width: fit-content;
 }
 .circle{
     width: 15px;

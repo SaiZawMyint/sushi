@@ -1,8 +1,8 @@
-
 const accountinformationData = {
     step1: [
         'firstName','lastName','city','region','postal','phoneNumber'
-    ]
+    ],
+    step2: ['phoneNumber','verifyCode']
 }
 
 export function validateAccount(setting = {
@@ -13,7 +13,6 @@ export function validateAccount(setting = {
     let data = {}
     let msg = []
     if(setting.step == 1){
-        
         for(let x of accountinformationData.step1){
             if(!x in setting.data){
                 msg.push(`Fail to continue`)
@@ -55,6 +54,53 @@ export function validateAccount(setting = {
                     }
                 }
                 
+            }
+        }
+    }
+    if(setting.step == 2){
+        for(let x of accountinformationData.step2){
+            if(!x in setting.data){
+                msg.push({
+                    field: x,
+                    msg: `Please fill ${formatCamelCase(x)}!`
+                })
+            }else{
+                if(setting.data[x] == null || setting.data[x].trim().length == 0){
+                    msg.push({
+                        field: x,
+                        msg: `Please fill ${formatCamelCase(x)}!`
+                    })
+                }else{
+                    if(x == 'verifyCode' || x == 'phoneNumber'){
+                        if(/\D/.test(setting.data[x])){
+                            msg.push({
+                                field: x,
+                                msg: `${formatCamelCase(x)} must be a number!`
+                            })
+                        }else{
+                            if(x == 'verifyCode' && setting.data[x].length != 5){
+                                msg.push({
+                                    field: x,
+                                    msg: `Invalid ${formatCamelCase(x)}!`
+                                })
+                            }
+                            if(x == 'phoneNumber' && setting.data[x].length < 10){
+                                msg.push({
+                                    field: x,
+                                    msg: `Invalid ${formatCamelCase(x)}!`
+                                })
+                            }
+                        }
+                    }
+                    if(x == 'region'){
+                        if(setting.data[x] == '0'){
+                            msg.push({
+                                field: x,
+                                msg: `Please choose ${formatCamelCase(x)}!`
+                            })
+                        }
+                    }
+                }
             }
         }
     }

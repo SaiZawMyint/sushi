@@ -1,5 +1,5 @@
 <template v-if="store.state.modalBox.data.show">
-    <div class="fixed w-full h-full overflow-hidden backdrop-blur-sm bg-[#0f172acc] modal" @click="closeModalOut">
+    <div class="fixed w-full h-full overflow-hidden backdrop-blur-sm df-theme-bg modal" @click="closeModalOut">
         <div id="itech-modal-box" class="shadow-lg rounded-lg bg-[#1e293b] text-white p-2 flex modal-box flex-col" @click.stop=""
             :class="[store.state.modalBox.data.width, store.state.modalBox.data.height, store.state.modalBox.data.animation]">
             <slot></slot>
@@ -31,6 +31,7 @@ const store = useStore()
 console.log(store.state.modalBox.data.show)
 function closeModalOut(e){
     e.stopPropagation()
+    if(!store.state.modalBox.data.closable) return false
     var target = document.querySelector('.close-modal');
     target.click()
 }

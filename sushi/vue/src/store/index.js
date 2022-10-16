@@ -5,7 +5,8 @@ const store = createStore({
         user: {
             data: {},
             token: sessionStorage.getItem('TOKEN'),
-            showacc: true
+            showacc: true,
+            otp: ''
         },
         store: {
             name: 'My Stores',
@@ -74,63 +75,69 @@ const store = createStore({
             }
         },
         loadingScreen: {
-            show: false
+            show: false,
+            title: ''
+        },
+        popUpNoti: {
+            
         }
     },
     getters: {},
     actions: {
         register({ commit }, user) {
-            return axiosClient.post('/register', user, {
-                onUploadProgress: function (progressEvent) {
-                    var uploadPercentage = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100));
-                    console.log(uploadPercentage)
-                }.bind(this)
-            })
+            return axiosClient.post('/register', user)
                 .then(({ data }) => {
                     commit('setUser', data)
                     return data;
                 })
         },
-        login({ commit }, user, 
+        login({ commit }, user,
         ) {
-    return axiosClient.post('/login', user, {
-        onUploadProgress: function (progressEvent) {
-            let uploadPercentage = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100));
-            console.log(uploadPercentage)
+            return axiosClient.post('/login', user)
+                .then(({ data }) => {
+                    commit('setUser', data)
+                    return data;
+                })
+        },
+        logout({ commit }) {
+            return axiosClient.post('/logout')
+                .then((res) => {
+                    commit('logout')
+                    return res
+                })
+        },
+        otp({ comit },data) {
+            return axiosClient.post('/otp',data)
+                .then((res) => {
+                    if (res.ok) {
+                        comit('otp',res)
+                    }
+                })
         }
-    })
-        .then(({ data }) => {
-            commit('setUser', data)
-            return data;
-        })
-},
-logout({ commit }){
-    return axiosClient.post('/logout')
-        .then((res) => {
-            commit('logout')
-            return res
-        })
-},
-modalBox({ commit }, data) {
-    commit('modal', data)
-    return data
-}
+        ,
+        modalBox({ commit }, data) {
+            commit('modal', data)
+            return data
+        }
     },
-mutations: {
-    logout: state => {
-        state.user.data = {}
-        state.user.token = null
-        sessionStorage.removeItem('TOKEN')
-    },
+    mutations: {
+        logout: state => {
+            state.user.data = {}
+            state.user.token = null
+            sessionStorage.removeItem('TOKEN')
+        },
         setUser: (state, data) => {
             state.user.data = data.user
             state.user.token = data.token
             sessionStorage.setItem("TOKEN", data.token)
         },
-            modal: (state, data) => {
-                state.modalBox.data = data
-            }
-},
-module: { }
+        modal: (state, data) => {
+            state.modalBox.data = data
+        },
+        opt: (state,data)=>{
+            state.user.otp = data.code
+        }
+    },
+    module: {}
 })
 export default store

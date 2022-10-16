@@ -194,7 +194,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        /**
+         * Key Service Providers...
+         */
+        App\Providers\KeyProvider::class,
     ],
 
     /*

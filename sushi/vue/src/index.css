@@ -1,49 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @font-face {
     font-family: 'poppin';
     src: url('font/Poppins-Regular.ttf');
 }
-body, body *{
+
+body,
+body * {
     font-family: 'poppin';
 }
-#app{
+
+.wrapper-auth {
+    background: url('./assets/img/img-bg-02.webp') no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.mask{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}
+.df-theme-bg{
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238, 174, 202, 0.568) 0%, rgba(148,187,233,1) 100%);
+}
+#app {
     width: 100%;
     height: 100vh;
 }
-.image-view{
+
+.image-view {
     width: 100%;
     height: fit-content;
     overflow: hidden;
     position: relative;
 }
-.image-view img{
+
+.image-view img {
     width: 100%;
 }
-.paragraph{
+
+.paragraph {
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.dashboard-menu-box{
-    width:400px;
-    background-color: rgb(31,41,55);
+
+.dashboard-menu-box {
+    width: 400px;
+    background-color: rgb(31, 41, 55);
 }
-.profile{
+
+.profile {
     position: relative;
     overflow: hidden;
     cursor: pointer;
 }
-.profile img{
+
+.profile img {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
 }
-.rounded-prog::before{
+
+.rounded-prog::before {
     content: '';
 
 }

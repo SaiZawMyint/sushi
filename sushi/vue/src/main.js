@@ -15,7 +15,6 @@ createApp(App)
 
 window.itech = function(select){
     select = select instanceof Element ? select: document.querySelector(select)
-    console.log(select)
     return {
         wait: function(time,action,callback){
             let id = null

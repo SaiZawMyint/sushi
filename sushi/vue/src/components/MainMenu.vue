@@ -3,7 +3,7 @@
         <div class="backdrop-blur-sm bg-white/30 w-full rounded-lg p-2 mt-0 mb-3 relative">
             <div class="flex">
                 <div class="rounded-full p-0 overflow-hidden w-[60px] h-[60px] border-2 profile">
-                    <img src="../profiles/img-profile.jpg" alt="Profile" class="">
+                    <img src="../profiles/img-business-pro.png" alt="Profile" class="">
                 </div>
                 <div class="flex flex-col">
                     <h3 class="px-2 text-2xl font-bold">Admin</h3>
