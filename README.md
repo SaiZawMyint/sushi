@@ -1,2 +1,2 @@
 # sushi
-Online shop management system
+E-Commerce Business management
