@@ -1,2 +1,2 @@
 # sushi
-E-Commerce Business management
+B2C management system
