@@ -106,13 +106,25 @@ const store = createStore({
                     return res
                 })
         },
-        otp({ comit },data) {
+        otp({commit},data) {
             return axiosClient.post('/otp',data)
                 .then((res) => {
-                    if (res.ok) {
-                        comit('otp',res)
-                    }
+                    return res;
                 })
+        },
+        verifyOTP({commit},data){
+            return axiosClient.post('/otp/verification',data)
+            .then(res=>{return res.data});
+        },
+        refreshUser({commit}){
+            return axiosClient.post('/getUser').then(res=>{
+                const data = {
+                    user: res.data,
+                    token: sessionStorage.getItem('TOKEN')
+                }
+                commit('setUser',data)
+                return res;
+            })
         }
         ,
         modalBox({ commit }, data) {
@@ -134,7 +146,7 @@ const store = createStore({
         modal: (state, data) => {
             state.modalBox.data = data
         },
-        opt: (state,data)=>{
+        otp: (state,data)=>{
             state.user.otp = data.code
         }
     },

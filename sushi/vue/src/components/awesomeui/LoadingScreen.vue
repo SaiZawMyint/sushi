@@ -35,7 +35,7 @@ const store = useStore()
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: #357941;
+    background-color: #38f5e8;
     margin: 0px 10px;
     transition: all .4s;
 }

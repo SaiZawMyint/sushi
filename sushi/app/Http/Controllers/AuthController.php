@@ -67,4 +67,7 @@ class AuthController extends Controller
             "success"=>true
         ]);
     }
+    public function getUser(){
+        return auth('sanctum')->user();
+    }
 }

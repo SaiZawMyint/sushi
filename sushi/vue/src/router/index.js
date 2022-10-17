@@ -43,6 +43,7 @@ const routes = [
     {
         path: '/account',
         name: 'account',
+        meta: {requiresAuth: true},
         component: Account
     }
     
@@ -62,6 +63,9 @@ router.beforeEach((to, from, next) => {
         }else{
             next({name: 'dashboard'})
         }
+    }else if(to.name == 'account' || from.name == 'account' && !store.state.user.token){
+        store.dispatch('refreshUser');
+        next()
     }
     else{
         next()

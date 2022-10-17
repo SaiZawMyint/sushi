@@ -198,6 +198,7 @@ return [
          * Key Service Providers...
          */
         App\Providers\KeyProvider::class,
+        App\Providers\UsersProvider::class
     ],
 
     /*

@@ -181,6 +181,7 @@ import LoadingScreenVue from '../components/awesomeui/LoadingScreen.vue'
 import { ref } from 'vue'
 
 const store = useStore()
+
 let sent = false
 let error = ref()
 const inputData = {
@@ -195,6 +196,7 @@ const inputData = {
 stepOneFun()
 
 function stepOneFun() {
+    store.state.modalBox.data.okBtn = 'Continue'
     store.state.modalBox.data = {
         title: 'Account Information',
         width: 'w-[fit-content]',
@@ -203,7 +205,7 @@ function stepOneFun() {
         okBtn: 'Continue',
         animation: 'slideLeft',
         ok: function (data) {
-            if (inputData.verifyCode == store.state.user.otp) {
+           
                 validateAccount(
                     {
                         step: 1,
@@ -219,17 +221,14 @@ function stepOneFun() {
                         }
                     }
                 )
-            } else {
-                error.value = {
-                    verifyCode: 'Invalid verification code!'
-                }
-            }
+            
 
         }
     }
 }
 function stepTwoFun() {
     store.state.modalBox.data.cancelBtn = 'Back'
+    store.state.modalBox.data.okBtn = 'Verify'
     store.state.modalBox.data.cancel = function () {
         stepOneFun()
         store.state.modalBox.step.one = true
@@ -248,7 +247,34 @@ function stepTwoFun() {
                     alertWarn()
                 } else {
                     error.value = null
-                    changeStep(3)
+                    store.state.popUpNoti = {
+                        show: true,
+                        message: 'Verifying email...',
+                        done: false,
+                        cls: 'show'
+                    }
+                    store.dispatch('verifyOTP',{code: inputData.verifyCode}).then(res=>{
+                        if(res.ok){
+                            changeStep(3)
+                        }else{
+                            error.value = {
+                                verifyCode: res.message
+                            }
+                            alertWarn()
+                        }
+                        itech().wait(2000, function () {
+                            store.state.popUpNoti = {
+                                show: true,
+                                message: res.message,
+                                done: true,
+                                cls: 'show'
+                            }
+                        }, function () {
+                            store.state.popUpNoti.cls = 'hide'
+                            store.state.popUpNoti = {}
+                        })
+                    })
+                    // 
                 }
             }
         })
@@ -258,6 +284,7 @@ function stepTwoFun() {
 }
 function stepThreeFun() {
     store.state.modalBox.data.cancelBtn = 'Skip'
+    store.state.modalBox.data.okBtn = 'Complete'
     store.state.modalBox.data.cancel = function () {
 
     }
@@ -340,11 +367,12 @@ function resendCode() {
 
     })
 }
+import { computed } from '@vue/reactivity';
 </script>
 <style>
 .background {
     background-color: #0f172acc;
-    background-image: url('../assets/img/img_bg_01.jpg');
+    background-image: url('../assets/img/img-bg-02.jpg');
     width: 100%;
     height: 100%;
     background-size: cover;
